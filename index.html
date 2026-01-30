@@ -86,6 +86,18 @@
         opacity: 0.6;
       }
 
+      .sunflower {
+        position: fixed;
+        bottom: -20px;
+        font-size: 22px;
+        animation: floatUp 5s linear forwards;
+        opacity: 0.7;
+      }
+
+      .primary:disabled {
+        opacity: 0.7;
+      }
+
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -137,26 +149,42 @@
         une petite question toute simple 🌸
       </p>
 
-      <p><strong>Ça te dirait d’être ma Valentine ?</strong></p>
-      <div class="small">Sans pression, évidemment.</div>
+      <p>
+        <strong>Est ce que, toi Sarah, tu voudrais être ma Valentine ?</strong>
+      </p>
+      <div class="small"></div>
 
-      <button class="primary" onclick="yes()">Oui, avec plaisir</button>
-      <button class="secondary" onclick="no()">Pas cette fois</button>
+      <button class="primary" onclick="yes()">Oui, avec plaisir ❤️</button>
     </div>
 
     <div class="card hidden" id="stepYes">
       <img
-        src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdThna29udXIxMGl4cmd3ZmVhanBmZ3kyd2F4cGJiNHo3dDk2cW9hdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HJibfnd7xqk5hAMD4v/giphy.gif"
+        src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2Jjb2lneXhpY2s3aWkwZWtiMW1xM2tzamQ0amFmZ2J4c3FtdXF3aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qPCln5TSOsdRS/giphy.gif"
         alt="happy"
         class="gif"
       />
       <p>Supeeeeer !! 😊</p>
-      <p>On verra ça tranquillement.</p>
-    </div>
+      <p>Pour accéder à ton petit programme 🌻, entre le code secret :</p>
+      <input
+        type="text"
+        id="secretInput"
+        placeholder="Code secret"
+        style="
+          padding: 8px;
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          width: 80%;
+          margin-bottom: 12px;
+        "
+      />
+      <br />
+      <button class="primary" onclick="checkCode()">Valider</button>
 
-    <div class="card hidden" id="stepNo">
-      <p>C’est totalement ok 🤍</p>
-      <p>Merci d’avoir pris le temps de lire.</p>
+      <p
+        id="codeMessage"
+        class="small"
+        style="margin-top: 8px; color: #555"
+      ></p>
     </div>
 
     <script>
@@ -168,7 +196,7 @@
       function yes() {
         document.getElementById("step2").classList.add("hidden");
         document.getElementById("stepYes").classList.remove("hidden");
-        spawnHearts();
+        spawnHeartsAndSunflowers();
       }
 
       function no() {
@@ -176,7 +204,7 @@
         document.getElementById("stepNo").classList.remove("hidden");
       }
 
-      function spawnHearts() {
+      function spawnHeartsAndSunflowers() {
         for (let i = 0; i < 12; i++) {
           const heart = document.createElement("div");
           heart.className = "heart";
@@ -184,8 +212,44 @@
           heart.style.left = Math.random() * 100 + "vw";
           heart.style.animationDelay = Math.random() * 1.5 + "s";
           document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 5000);
 
-          setTimeout(() => heart.remove(), 4000);
+          const sunflower = document.createElement("div");
+          sunflower.className = "sunflower";
+          sunflower.innerText = "🌻";
+          sunflower.style.left = Math.random() * 100 + "vw";
+          sunflower.style.animationDelay = Math.random() * 1.5 + "s";
+          document.body.appendChild(sunflower);
+          setTimeout(() => sunflower.remove(), 5000);
+        }
+      }
+
+      const SECRET_CODE = "BISCOTTE";
+
+      function yes() {
+        document.getElementById("step2").classList.add("hidden");
+        document.getElementById("stepYes").classList.remove("hidden");
+        spawnHeartsAndSunflowers();
+        setTimeout(() => {}, 500);
+      }
+
+      function checkCode() {
+        const input = document
+          .getElementById("secretInput")
+          .value.trim()
+          .toUpperCase();
+        console.log(input);
+        const msg = document.getElementById("codeMessage");
+
+        if (input === SECRET_CODE) {
+          msg.textContent = "Code correct ! Ouverture du programme 🌻...";
+          msg.style.color = "#FFB3C7";
+          setTimeout(() => {
+            window.open("programme.pdf", "_blank");
+          }, 700);
+        } else {
+          msg.textContent = "Hmm, ce n’est pas le bon code 🙂. Essaie encore !";
+          msg.style.color = "#555";
         }
       }
     </script>
