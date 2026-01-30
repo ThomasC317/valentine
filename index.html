@@ -191,7 +191,7 @@
         class="gif"
       />
       <p>Supeeeeer !! 😊</p>
-      <p>Pour accéder au programme de Saint Valentin 🌻, trouve et entre le code secret :</p>
+      <p>Le programme est actuellement </p>
       <input
         type="text"
         id="secretInput"
@@ -203,7 +203,8 @@
           width: 80%;
           margin-bottom: 12px;
         "
-      />
+      /> <br />
+      <p>locké</p>
       <br />
       <button class="primary" onclick="checkCode()">Valider</button>
 
@@ -289,7 +290,7 @@
         }
       }
 
-      const SECRET_CODE = "DJANGO";
+      const SECRET_CODE = "SHER";
 
       function yes() {
         document.getElementById("step2").classList.add("hidden");
@@ -307,11 +308,11 @@
         const msg = document.getElementById("codeMessage");
 
         if (input === SECRET_CODE) {
-          msg.textContent = "Code correct ! Ouverture du programme 🌻...";
+          msg.textContent = "Trop forte 🌻🎩...";
           msg.style.color = "#FFB3C7";
           setTimeout(() => {
             window.open("programme.pdf", "_blank");
-          }, 700);
+          }, 2000);
         } else {
           msg.textContent = "Hmm, ce n’est pas le bon code 🙂. Essaie encore !";
           msg.style.color = "#555";
