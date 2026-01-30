@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Juste une petite question 🌸</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #fff6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #444;
+    }
+
+    .card {
+      background: white;
+      padding: 32px;
+      border-radius: 20px;
+      max-width: 360px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    button {
+      border: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin: 6px;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary {
+      background: #ffb3c7;
+      color: white;
+    }
+
+    .secondary {
+      background: #eee;
+      color: #555;
+    }
+
+    .small {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 4s linear forwards;
+      opacity: 0.6;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+        opacity: 0.6;
+      }
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="step1">
+    <h1>Hey 🙂</h1>
+    <p>J’avais envie de te proposer un petit truc.</p>
+    <button class="primary" onclick="next()">Voir</button>
+  </div>
+
+  <div class="card hidden" id="step2">
+    <p>
+      J’aime bien les moments qu’on partage,<br />
+      et je me sens bien avec toi.
+    </p>
+    <p>
+      Alors je me suis dit que je tenterais<br />
+      une petite question toute simple 🌸
+    </p>
+
+    <p><strong>Ça te dirait d’être ma Valentine ?</strong></p>
+    <div class="small">Sans pression, évidemment.</div>
+
+    <button class="primary" onclick="yes()">Oui, avec plaisir</button>
+    <button class="secondary" onclick="no()">Pas cette fois</button>
+  </div>
+
+  <div class="card hidden" id="stepYes">
+  <img style="width:50px;height:50px" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdThna29udXIxMGl4cmd3ZmVhanBmZ3kyd2F4cGJiNHo3dDk2cW9hdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HJibfnd7xqk5hAMD4v/giphy.gif" alt="happy" class="gif" />
+    <p>Supeeeeer !! 😊</p>
+    <p>On verra ça tranquillement.</p>
+  </div>
+
+  <div class="card hidden" id="stepNo">
+    <p>C’est totalement ok 🤍</p>
+    <p>Merci d’avoir pris le temps de lire.</p>
+  </div>
+
+  <script>
+    function next() {
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('step2').classList.remove('hidden');
+    }
+
+    function yes() {
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('stepYes').classList.remove('hidden');
+      spawnHearts();
+    }
+
+    function no() {
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('stepNo').classList.remove('hidden');
+    }
+
+    function spawnHearts() {
+      for (let i = 0; i < 12; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerText = '💗';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDelay = Math.random() * 1.5 + 's';
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+      }
+    }
+  </script>
+
+</body>
+</html>
