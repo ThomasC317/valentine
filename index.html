@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -98,6 +98,16 @@
         opacity: 0.7;
       }
 
+      .christophe {
+        position: fixed;
+        bottom: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        max-width: 15vw;
+        animation: floatCM 5s linear forwards;
+        z-index: 10;
+      }
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -130,6 +140,20 @@
           font-size: 0.9rem;
         }
       }
+
+      @keyframes floatCM {
+        from {
+          bottom: -100px;
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
+        }
+        to {
+          bottom: 80vh; /* monte vers le haut */
+          opacity: 1;
+        }
+      }
     </style>
   </head>
   <body>
@@ -154,7 +178,10 @@
       </p>
       <div class="small"></div>
 
-      <button class="primary" onclick="yes()">Oui, avec plaisir ❤️</button>
+      <button id="yesBtn" class="primary" onclick="yes()">
+        Oui, avec plaisir ❤️
+      </button>
+      <button class="secondary" onclick="no()">Pas cette fois</button>
     </div>
 
     <div class="card hidden" id="stepYes">
@@ -198,10 +225,39 @@
         document.getElementById("stepYes").classList.remove("hidden");
         spawnHeartsAndSunflowers();
       }
-
+      let noClickCount = 0;
       function no() {
-        document.getElementById("step2").classList.add("hidden");
-        document.getElementById("stepNo").classList.remove("hidden");
+        const yesBtn = document.getElementById("yesBtn");
+        noClickCount++;
+
+        switch (noClickCount) {
+          case 1:
+            yesBtn.textContent = "Allez 😋";
+            yesBtn.style.fontSize = "1.4rem";
+            yesBtn.style.padding = "18px 28px";
+            break;
+          case 2:
+            yesBtn.textContent = "Allez, stp 🍪";
+            yesBtn.style.fontSize = "1.7rem";
+            yesBtn.style.padding = "20px 32px";
+            break;
+          case 3:
+            yesBtn.textContent = "Encore un petit effort 😅🍩";
+            yesBtn.style.fontSize = "2rem";
+            yesBtn.style.padding = "22px 36px";
+            break;
+          case 4:
+            yesBtn.textContent = "Ok… juste pour toi 😍🎉";
+            yesBtn.style.fontSize = "2.3rem";
+            yesBtn.style.padding = "24px 40px";
+            break;
+          default:
+            yesBtn.style.transform = "translateX(-5px)";
+            setTimeout(() => {
+              yesBtn.style.transform = "translateX(0)";
+            }, 100);
+            break;
+        }
       }
 
       function spawnHeartsAndSunflowers() {
@@ -221,10 +277,19 @@
           sunflower.style.animationDelay = Math.random() * 1.5 + "s";
           document.body.appendChild(sunflower);
           setTimeout(() => sunflower.remove(), 5000);
+
+          // ajout de Christophe Maé
+          const cm = document.createElement("img");
+          cm.src = "mae.png"; // ou GIF
+          cm.className = "christophe";
+          document.body.appendChild(cm);
+
+          // optionnel : retirer après 5-6s
+          setTimeout(() => cm.remove(), 5500);
         }
       }
 
-      const SECRET_CODE = "BISCOTTE";
+      const SECRET_CODE = "DJANGO";
 
       function yes() {
         document.getElementById("step2").classList.add("hidden");
